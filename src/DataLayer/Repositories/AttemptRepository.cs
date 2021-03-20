@@ -59,16 +59,5 @@ namespace DataLayer.Repositories
                 .ThenInclude(ti => ti.Question.Answers)
                 .Select(a => a.ToDomain());
         }
-
-        //Удалить эту гадость
-        private static AttemptRepository instance;
-        public static AttemptRepository Init()
-        {
-            if (instance is null)
-            {
-                instance = new AttemptRepository(TesterContext.Init());
-            }
-            return instance;
-        }
     }
 }

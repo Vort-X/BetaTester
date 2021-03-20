@@ -5,7 +5,6 @@ namespace DataLayer.Entities
     public class TestItemEntity : BaseEntity
     {
         public bool GotRightAnswer { get; private set; }
-        //[NotMapped]
         [ForeignKey("QuestionId")]
         public QuestionEntity Question { get; private set; }
         

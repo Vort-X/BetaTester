@@ -26,16 +26,5 @@ namespace BusinessLogicLayer.Services
         {
             attemptRepository.Add(attempt.ToDomain());
         }
-
-        //Удалить эту гадость
-        private static AttemptService instance;
-        public static AttemptService Init()
-        {
-            if (instance is null)
-            {
-                instance = new AttemptService(AttemptRepository.Init());
-            }
-            return instance;
-        }
     }
 }

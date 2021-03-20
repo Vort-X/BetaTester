@@ -31,10 +31,9 @@ namespace BusinessLogicLayer.Services
                 .Where(p => p.Value > 0)
                 .ToList()
                 .ForEach((pair) => {
-                    var a = questionRepository.GetByDifficulty(pair.Key.ToDomain(), pair.Value).ToList();
-                    var b = a.Select(q => q.ToModel());
-
-                    testContent.AddRange(b);
+                    testContent.AddRange(questionRepository
+                        .GetByDifficulty(pair.Key.ToDomain(), pair.Value)
+                        .Select(q => q.ToModel()));
                 });
             return testContent;
         }
@@ -42,17 +41,6 @@ namespace BusinessLogicLayer.Services
         public void AddQuestion(QuestionModel questionModel)
         {
             questionRepository.Add(questionModel.ToDomain());
-        }
-
-        //Удалить эту гадость
-        private static QuestionService instance;
-        public static QuestionService Init()
-        {
-            if (instance is null)
-            {
-                instance = new QuestionService(QuestionRepository.Init(), QuestionDifficultyRepository.Init());
-            }
-            return instance;
         }
     }
 }

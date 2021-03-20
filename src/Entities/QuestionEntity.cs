@@ -6,7 +6,6 @@ namespace DataLayer.Entities
     public class QuestionEntity : BaseEntity
     {
         public string Text { get; private set; }
-        //[NotMapped]
         [ForeignKey("DifficultyId")]
         public QuestionDifficultyEntity Difficulty { get; private set; }
         public int DifficultyId { get; private set; }

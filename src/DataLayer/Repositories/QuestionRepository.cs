@@ -12,7 +12,6 @@ namespace DataLayer.Repositories
     public class QuestionRepository : IQuestionRepository
     {
         private readonly TesterContext dbContext;
-        private readonly Random random = new Random();
 
         public QuestionRepository(TesterContext dbContext)
         {
@@ -53,22 +52,11 @@ namespace DataLayer.Repositories
         {
             return dbContext.Questions
                 .Where(q => q.Difficulty.Id == difficulty.Id)
-                //.OrderBy(q => random.Next())
+                .OrderBy(q => Guid.NewGuid())
                 .Take(amount)
                 .Include(q => q.Difficulty)
                 .Include(q => q.Answers)
                 .Select(q => q.ToDomain());
-        }
-
-        //Удалить эту гадость
-        private static QuestionRepository instance;
-        public static QuestionRepository Init()
-        {
-            if (instance is null)
-            {
-                instance = new QuestionRepository(TesterContext.Init());
-            }
-            return instance;
         }
     }
 }

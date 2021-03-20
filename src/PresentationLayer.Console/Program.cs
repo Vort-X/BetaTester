@@ -1,4 +1,9 @@
-﻿using BusinessLogicLayer.Services;
+﻿using BusinessLogicLayer.Interfaces;
+using BusinessLogicLayer.Services;
+using DataLayer.Database;
+using DataLayer.Interfaces;
+using DataLayer.Repositories;
+using Microsoft.Extensions.DependencyInjection;
 using PresentationLayer.ConsoleUI.UI;
 
 namespace PresentationLayer.ConsoleUI
@@ -7,16 +12,21 @@ namespace PresentationLayer.ConsoleUI
     {
         static void Main(string[] args)
         {
-            IUserInterface userInterface;
-            if (args.Length > 0 && args[0] == "-debug")
-            {
-                userInterface = new DebugCLI(AttemptService.Init(), QuestionService.Init());
-            }
-            else
-            {
-                userInterface = new CLI(AttemptService.Init(), QuestionService.Init());
-            }
-            userInterface.Run();
+            IServiceCollection services = new ServiceCollection();
+            ConfigureServices(services);
+            ServiceProvider provider = services.BuildServiceProvider();
+            provider.GetRequiredService<IUserInterface>().Run();
+        }
+
+        private static void ConfigureServices(IServiceCollection services)
+        {
+            services.AddDbContext<TesterContext>()
+                .AddScoped<IQuestionDifficultyRepository, QuestionDifficultyRepository>()
+                .AddScoped<IQuestionRepository, QuestionRepository>()
+                .AddScoped<IAttemptRepository, AttemptRepository>()
+                .AddScoped<IAttemptService, AttemptService>()
+                .AddScoped<IQuestionService, QuestionService>()
+                .AddScoped<IUserInterface, DebugCLI>();
         }
 
         //static void ConsoleTestingUI(Dictionary<QuestionEntity, List<AnswerEntity>> test)

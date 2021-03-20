@@ -16,7 +16,7 @@ namespace DataLayer.Repositories
             this.dbContext = dbContext;
             
             //Удалить эту гадость
-            if (!GetAll().Any())
+            if (!dbContext.QuestionDifficulties.Any())
             {
                 Add(new QuestionDifficulty(0, "Easy", 1));
                 Add(new QuestionDifficulty(0, "Normal", 3));
@@ -57,17 +57,6 @@ namespace DataLayer.Repositories
             var cfg = new TestConfig();
             GetAll().ToList().ForEach(qd => cfg.QuestionsOfEachDifficulty[qd] = 0);
             return cfg;
-        }
-
-        //Удалить эту гадость
-        private static QuestionDifficultyRepository instance;
-        public static QuestionDifficultyRepository Init()
-        {
-            if (instance is null)
-            {
-                instance = new QuestionDifficultyRepository(TesterContext.Init());
-            }
-            return instance;
         }
     }
 }
