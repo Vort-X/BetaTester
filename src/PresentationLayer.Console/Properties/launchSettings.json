@@ -2,10 +2,6 @@
   "profiles": {
     "PresentationLayer.Console": {
       "commandName": "Project"
-    },
-    "debugmode": {
-      "commandName": "Project",
-      "commandLineArgs": "-debug"
     }
   }
 }

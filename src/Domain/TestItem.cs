@@ -3,12 +3,13 @@
     public class TestItem : Base
     {
         public bool GotRightAnswer { get; private set; }
-        public Question Question { get; private set; }
+        public int QuestionId { get; private set; }
 
-        public TestItem(int id, bool gotRightAnswer, Question question) : base(id)
+        public TestItem(int id, bool gotRightAnswer, int questionId)
         {
+            Id = id;
             GotRightAnswer = gotRightAnswer;
-            Question = question;
+            QuestionId = questionId;
         }
     }
 }

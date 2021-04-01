@@ -1,8 +1,7 @@
-﻿using BusinessLogicLayer.Interfaces;
-using BusinessLogicLayer.Mappers;
+﻿using BusinessLogicLayer.Domain;
+using BusinessLogicLayer.Interfaces;
 using DataLayer.Interfaces;
-using DataLayer.Repositories;
-using PresentationLayer.Models;
+using Mappers;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,14 +16,14 @@ namespace BusinessLogicLayer.Services
             this.attemptRepository = attemptRepository;
         }
 
-        public List<AttemptModel> GetTopTen()
+        public List<Attempt> GetTopTen()
         {
-            return attemptRepository.GetLeaders(10).Select(a => a.ToModel()).ToList();
+            return attemptRepository.GetLeaders(10).Select(a => a.ToDomain()).ToList();
         }
 
-        public void SaveAttempt(AttemptModel attempt)
+        public void SaveAttempt(Attempt attempt)
         {
-            attemptRepository.Add(attempt.ToDomain());
+            attemptRepository.Add(attempt.ToEntity());
         }
     }
 }

@@ -1,10 +1,10 @@
-﻿using BusinessLogicLayer.Domain;
+﻿using DataLayer.Entities;
 using System.Collections.Generic;
 
 namespace DataLayer.Interfaces
 {
-    public interface IQuestionRepository : IRepository<Question>
+    public interface IQuestionRepository : IRepository<QuestionEntity>
     {
-        IEnumerable<Question> GetByDifficulty(QuestionDifficulty difficulty, int amount);
+        IReadOnlyList<QuestionEntity> GetRandomByDifficulty(int difficultyId, int amount);
     }
 }

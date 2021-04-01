@@ -1,9 +1,9 @@
-﻿using BusinessLogicLayer.Domain;
+﻿using DataLayer.Entities;
 
 namespace DataLayer.Interfaces
 {
-    public interface IQuestionDifficultyRepository : IRepository<QuestionDifficulty>
+    public interface IQuestionDifficultyRepository : IRepository<QuestionDifficultyEntity>
     {
-        TestConfig CreateConfig();
+         
     }
 }

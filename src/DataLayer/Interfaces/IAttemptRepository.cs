@@ -1,10 +1,10 @@
-﻿using BusinessLogicLayer.Domain;
+﻿using DataLayer.Entities;
 using System.Collections.Generic;
 
 namespace DataLayer.Interfaces
 {
-    public interface IAttemptRepository : IRepository<Attempt>
+    public interface IAttemptRepository : IRepository<AttemptEntity>
     {
-        IEnumerable<Attempt> GetLeaders(int amount);
+        IReadOnlyList<AttemptEntity> GetLeaders(int amount);
     }
 }

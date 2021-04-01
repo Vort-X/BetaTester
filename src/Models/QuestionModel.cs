@@ -5,15 +5,16 @@ namespace PresentationLayer.Models
     public class QuestionModel : BaseModel
     {
         public string Text { get; private set; }
-        public QuestionDifficultyModel Difficulty { get; private set; }
+        public int DifficultyId { get; private set; }
         public List<AnswerModel> Answers { get; private set; }
 
         public int Points;
 
-        public QuestionModel(int id, string text, QuestionDifficultyModel difficulty) : base(id)
+        public QuestionModel(int id, string text, int difficultyId)
         {
+            Id = id;
             Text = text;
-            Difficulty = difficulty;
+            DifficultyId = difficultyId;
 
             Answers = new List<AnswerModel>();
         }

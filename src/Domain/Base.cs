@@ -2,11 +2,6 @@
 {
     public abstract class Base
     {
-        public int Id { get; private set; }
-
-        protected Base(int id)
-        {
-            Id = id;
-        }
+        public int Id { get; protected set; }
     }
 }

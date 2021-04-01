@@ -1,4 +1,5 @@
 ﻿using BusinessLogicLayer.Interfaces;
+using Mappers;
 using PresentationLayer.Models;
 using System;
 using System.Collections.Generic;
@@ -61,7 +62,7 @@ namespace PresentationLayer.ConsoleUI.UI
 
             var difsMenu = new Dictionary<int, QuestionDifficultyModel>();
             int i = 1;
-            foreach (var key in questionService.CreateConfig().QuestionsOfEachDifficulty.Keys)
+            foreach (var key in questionService.CreateConfig().ToModel().QuestionsOfEachDifficulty.Keys)
             {
                 difsMenu[i++] = key;
             }
@@ -81,7 +82,7 @@ namespace PresentationLayer.ConsoleUI.UI
             }
             Console.WriteLine("Write question text:");
             text = Console.ReadLine();
-            QuestionModel question = new QuestionModel(0, text, difficulty);
+            QuestionModel question = new QuestionModel(0, text, difficulty.Id);
 
             bool isRight = true;
             for (int j = 0; j < 4; j++)
@@ -91,7 +92,7 @@ namespace PresentationLayer.ConsoleUI.UI
                 if (isRight) isRight = false;
             }
 
-            questionService.AddQuestion(question);
+            questionService.AddQuestion(question.ToDomain());
         }
         //public new void Run()
         //{

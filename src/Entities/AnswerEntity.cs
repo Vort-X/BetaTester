@@ -10,8 +10,9 @@
 
         }
 
-        public AnswerEntity(int id, bool isCorrect, string text) : base(id)
+        public AnswerEntity(int id, bool isCorrect, string text)
         {
+            Id = id;
             IsCorrect = isCorrect;
             Text = text;
         }

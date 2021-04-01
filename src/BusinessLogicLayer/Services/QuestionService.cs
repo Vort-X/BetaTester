@@ -1,8 +1,7 @@
-﻿using BusinessLogicLayer.Interfaces;
-using BusinessLogicLayer.Mappers;
+﻿using BusinessLogicLayer.Domain;
+using BusinessLogicLayer.Interfaces;
 using DataLayer.Interfaces;
-using DataLayer.Repositories;
-using PresentationLayer.Models;
+using Mappers;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -19,28 +18,33 @@ namespace BusinessLogicLayer.Services
             this.questionDifficultyRepository = questionDifficultyRepository;
         }
 
-        public TestConfigModel CreateConfig()
+        public TestConfig CreateConfig()
         {
-            return questionDifficultyRepository.CreateConfig().ToModel();
+            var cfg = new TestConfig();
+            foreach (var item in questionDifficultyRepository.ListAll())
+            {
+                cfg.QuestionsOfEachDifficulty[item.ToDomain()] = 0;
+            }
+            return cfg;
         }
 
-        public List<QuestionModel> GenerateTest(TestConfigModel testConfig)
+        public List<Question> GenerateTest(TestConfig testConfig)
         {
-            List<QuestionModel> testContent = new List<QuestionModel>();
+            List<Question> testContent = new List<Question>();
             testConfig.QuestionsOfEachDifficulty
                 .Where(p => p.Value > 0)
                 .ToList()
                 .ForEach((pair) => {
                     testContent.AddRange(questionRepository
-                        .GetByDifficulty(pair.Key.ToDomain(), pair.Value)
-                        .Select(q => q.ToModel()));
+                        .GetRandomByDifficulty(pair.Key.Id, pair.Value)
+                        .Select(q => q.ToDomain()));
                 });
             return testContent;
         }
 
-        public void AddQuestion(QuestionModel questionModel)
+        public void AddQuestion(Question question)
         {
-            questionRepository.Add(questionModel.ToDomain());
+            questionRepository.Add(question.ToEntity());
         }
     }
 }

@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entities", "src\Entities\En
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "src\Domain\Domain.csproj", "{5A2B18EE-9DF4-4A1D-B5E1-A6570D55C686}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "src\Models\Models.csproj", "{04D84303-37E3-4EDE-BE05-A7858A42F890}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "src\Models\Models.csproj", "{04D84303-37E3-4EDE-BE05-A7858A42F890}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mappers", "src\Mappers\Mappers.csproj", "{45EA4916-E099-4FC7-AE84-55628A895B88}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{04D84303-37E3-4EDE-BE05-A7858A42F890}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04D84303-37E3-4EDE-BE05-A7858A42F890}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04D84303-37E3-4EDE-BE05-A7858A42F890}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45EA4916-E099-4FC7-AE84-55628A895B88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45EA4916-E099-4FC7-AE84-55628A895B88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45EA4916-E099-4FC7-AE84-55628A895B88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45EA4916-E099-4FC7-AE84-55628A895B88}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

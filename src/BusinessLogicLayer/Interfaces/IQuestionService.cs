@@ -1,12 +1,12 @@
-﻿using PresentationLayer.Models;
+﻿using BusinessLogicLayer.Domain;
 using System.Collections.Generic;
 
 namespace BusinessLogicLayer.Interfaces
 {
     public interface IQuestionService
     {
-        void AddQuestion(QuestionModel questionModel);
-        TestConfigModel CreateConfig();
-        List<QuestionModel> GenerateTest(TestConfigModel testConfig);
+        void AddQuestion(Question questionModel);
+        TestConfig CreateConfig();
+        List<Question> GenerateTest(TestConfig testConfig);
     }
 }

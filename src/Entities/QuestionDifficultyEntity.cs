@@ -1,6 +1,8 @@
-﻿namespace DataLayer.Entities
+﻿using Entities.Interfaces;
+
+namespace DataLayer.Entities
 {
-    public class QuestionDifficultyEntity : BaseEntity
+    public class QuestionDifficultyEntity : BaseEntity, IAggregateRoot
     {
         public string Name { get; private set; }
         public int Points { get; private set; }
@@ -10,8 +12,9 @@
 
         }
 
-        public QuestionDifficultyEntity(int id, string name, int points) : base(id)
+        public QuestionDifficultyEntity(int id, string name, int points)
         {
+            Id = id;
             Name = name;
             Points = points;
         }

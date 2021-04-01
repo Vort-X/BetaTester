@@ -1,11 +1,11 @@
-﻿using PresentationLayer.Models;
+﻿using BusinessLogicLayer.Domain;
 using System.Collections.Generic;
 
 namespace BusinessLogicLayer.Interfaces
 {
     public interface IAttemptService
     {
-        List<AttemptModel> GetTopTen();
-        void SaveAttempt(AttemptModel attempt);
+        List<Attempt> GetTopTen();
+        void SaveAttempt(Attempt attempt);
     }
 }

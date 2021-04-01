@@ -1,7 +1,6 @@
-﻿using BusinessLogicLayer.Domain;
-using DataLayer.Database;
+﻿using DataLayer.Database;
+using DataLayer.Entities;
 using DataLayer.Interfaces;
-using DataLayer.Mappers;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,54 +8,20 @@ using System.Linq;
 
 namespace DataLayer.Repositories
 {
-    public class QuestionRepository : IQuestionRepository
+    public class QuestionRepository : EfRepository<QuestionEntity>, IQuestionRepository
     {
-        private readonly TesterContext dbContext;
-
-        public QuestionRepository(TesterContext dbContext)
+        public QuestionRepository(TesterContext dbContext) : base(dbContext)
         {
-            this.dbContext = dbContext;
         }
 
-        public Question GetById(int id)
-        {
-            return dbContext.Questions.Find(id).ToDomain();
-        }
-
-        public IEnumerable<Question> GetAll()
-        {
-            return dbContext.Questions.Select(q => q.ToDomain());
-        }
-
-        public void Add(Question domain)
-        {
-            var ent = domain.ToEntity();
-            ent.NullifyReferences();
-            dbContext.Questions.Add(ent);
-            dbContext.SaveChanges();
-        }
-
-        public void Update(Question domain)
-        {
-            dbContext.Questions.Update(domain.ToEntity());
-            dbContext.SaveChanges();
-        }
-
-        public void Remove(Question domain)
-        {
-            dbContext.Questions.Remove(domain.ToEntity());
-            dbContext.SaveChanges();
-        }
-
-        public IEnumerable<Question> GetByDifficulty(QuestionDifficulty difficulty, int amount)
+        public IReadOnlyList<QuestionEntity> GetRandomByDifficulty(int difficultyId, int amount)
         {
             return dbContext.Questions
-                .Where(q => q.Difficulty.Id == difficulty.Id)
+                .Where(q => q.DifficultyId == difficultyId)
                 .OrderBy(q => Guid.NewGuid())
                 .Take(amount)
-                .Include(q => q.Difficulty)
                 .Include(q => q.Answers)
-                .Select(q => q.ToDomain());
+                .ToList();
         }
     }
 }

@@ -9,8 +9,9 @@ namespace BusinessLogicLayer.Domain
         public DateTime TestingDate { get; private set; }
         public List<TestItem> TestItems { get; private set; }
 
-        public Attempt(int id, string testerName, DateTime testingDate) : base(id)
+        public Attempt(int id, string testerName, DateTime testingDate)
         {
+            Id = id;
             TesterName = testerName;
             TestingDate = testingDate;
 
