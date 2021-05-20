@@ -16,9 +16,12 @@ namespace BusinessLogicLayer.Services
             this.attemptRepository = attemptRepository;
         }
 
-        public List<Attempt> GetTopTen()
+        public List<AttemptInfo> GetTopTen()
         {
-            return attemptRepository.GetLeaders(10).Select(a => a.ToDomain()).ToList();
+            return attemptRepository
+                .GetLeaders(10)
+                .Select(a => new AttemptInfo(a.TesterName, a.TestingDate, attemptRepository.GetPoints(a.Id)))
+                .ToList();
         }
 
         public void SaveAttempt(Attempt attempt)

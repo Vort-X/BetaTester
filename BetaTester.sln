@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "src\Domain\Domain
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "src\Models\Models.csproj", "{04D84303-37E3-4EDE-BE05-A7858A42F890}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mappers", "src\Mappers\Mappers.csproj", "{45EA4916-E099-4FC7-AE84-55628A895B88}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mappers", "src\Mappers\Mappers.csproj", "{45EA4916-E099-4FC7-AE84-55628A895B88}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PresentationLayer.WpfApp", "src\PresentationLayer.WpfApp\PresentationLayer.WpfApp.csproj", "{505C1A7F-E466-4452-8DDA-A8CCB85BA5D3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{45EA4916-E099-4FC7-AE84-55628A895B88}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45EA4916-E099-4FC7-AE84-55628A895B88}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45EA4916-E099-4FC7-AE84-55628A895B88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{505C1A7F-E466-4452-8DDA-A8CCB85BA5D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{505C1A7F-E466-4452-8DDA-A8CCB85BA5D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{505C1A7F-E466-4452-8DDA-A8CCB85BA5D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{505C1A7F-E466-4452-8DDA-A8CCB85BA5D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

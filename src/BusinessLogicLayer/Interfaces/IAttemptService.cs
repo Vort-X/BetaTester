@@ -5,7 +5,7 @@ namespace BusinessLogicLayer.Interfaces
 {
     public interface IAttemptService
     {
-        List<Attempt> GetTopTen();
+        List<AttemptInfo> GetTopTen();
         void SaveAttempt(Attempt attempt);
     }
 }

@@ -8,5 +8,6 @@ namespace BusinessLogicLayer.Interfaces
         void AddQuestion(Question questionModel);
         TestConfig CreateConfig();
         List<Question> GenerateTest(TestConfig testConfig);
+        List<QuestionDifficulty> GetDifficulties();
     }
 }

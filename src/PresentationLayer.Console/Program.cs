@@ -5,6 +5,7 @@ using DataLayer.Interfaces;
 using DataLayer.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using PresentationLayer.ConsoleUI.UI;
+using System;
 
 namespace PresentationLayer.ConsoleUI
 {
@@ -15,7 +16,15 @@ namespace PresentationLayer.ConsoleUI
             IServiceCollection services = new ServiceCollection();
             ConfigureServices(services);
             ServiceProvider provider = services.BuildServiceProvider();
-            provider.GetRequiredService<IUserInterface>().Run();
+
+            DateTime start = DateTime.Now;
+            var p = provider.GetRequiredService<IUserInterface>();
+            DateTime end = DateTime.Now;
+            Console.WriteLine(end - start);
+            Console.ReadKey();
+
+            p.Run();
+            //provider.GetRequiredService<IUserInterface>().Run();
         }
 
         private static void ConfigureServices(IServiceCollection services)

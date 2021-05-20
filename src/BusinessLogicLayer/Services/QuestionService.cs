@@ -23,7 +23,7 @@ namespace BusinessLogicLayer.Services
             var cfg = new TestConfig();
             foreach (var item in questionDifficultyRepository.ListAll())
             {
-                cfg.QuestionsOfEachDifficulty[item.ToDomain()] = 0;
+                cfg.QuestionsOfEachDifficulty[item.ToDomain()] = 1;
             }
             return cfg;
         }
@@ -45,6 +45,11 @@ namespace BusinessLogicLayer.Services
         public void AddQuestion(Question question)
         {
             questionRepository.Add(question.ToEntity());
+        }
+
+        public List<QuestionDifficulty> GetDifficulties()
+        {
+            return questionDifficultyRepository.ListAll().Select(qd => qd.ToDomain()).ToList();
         }
     }
 }
