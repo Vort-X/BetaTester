@@ -29,6 +29,7 @@ namespace PresentationLayer.WpfApp.Models
             testItems = new List<TestItemModel>();
         }
 
+        public Dictionary<QuestionDifficultyModel, int> Config => config.QuestionsOfEachDifficulty;
         public QuestionDifficultyModel CurrentDifficulty => difficulties.Find(d => d.Id == CurrentQuestion.DifficultyId);
         public QuestionModel CurrentQuestion => questions[currentIndex];
 
@@ -44,6 +45,7 @@ namespace PresentationLayer.WpfApp.Models
             }
             testItems.Clear();
             currentIndex = 0;
+            Shuffle();
 
             QuestionUpdate?.Invoke();
         }
@@ -74,6 +76,14 @@ namespace PresentationLayer.WpfApp.Models
             var attempt = new AttemptModel(0, username, DateTime.Now);
             attempt.TestItems.AddRange(testItems);
             attemptService.SaveAttempt(attempt.ToDomain());
+        }
+
+        private void Shuffle()
+        {
+            foreach (var item in questions)
+            {
+                item.Answers = item.Answers.OrderBy(a => Guid.NewGuid()).ToList();
+            }
         }
     }
 }

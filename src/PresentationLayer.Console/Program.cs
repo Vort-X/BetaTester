@@ -3,6 +3,7 @@ using BusinessLogicLayer.Services;
 using DataLayer.Database;
 using DataLayer.Interfaces;
 using DataLayer.Repositories;
+using DataLayer.UnitOfWork;
 using Microsoft.Extensions.DependencyInjection;
 using PresentationLayer.ConsoleUI.UI;
 using System;
@@ -30,9 +31,10 @@ namespace PresentationLayer.ConsoleUI
         private static void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<TesterContext>()
-                .AddScoped<IQuestionDifficultyRepository, QuestionDifficultyRepository>()
-                .AddScoped<IQuestionRepository, QuestionRepository>()
-                .AddScoped<IAttemptRepository, AttemptRepository>()
+                //.AddScoped<IQuestionDifficultyRepository, QuestionDifficultyRepository>()
+                //.AddScoped<IQuestionRepository, QuestionRepository>()
+                //.AddScoped<IAttemptRepository, AttemptRepository>()
+                .AddSingleton<IUnitOfWork, UnitOfWork>()
                 .AddScoped<IAttemptService, AttemptService>()
                 .AddScoped<IQuestionService, QuestionService>()
                 .AddScoped<IUserInterface, DebugCLI>();

@@ -6,7 +6,7 @@ namespace PresentationLayer.Models
     {
         public string Text { get; private set; }
         public int DifficultyId { get; private set; }
-        public List<AnswerModel> Answers { get; private set; }
+        public List<AnswerModel> Answers { get; set; }
 
         public int Points;
 

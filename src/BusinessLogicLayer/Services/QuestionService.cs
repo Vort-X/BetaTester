@@ -9,19 +9,26 @@ namespace BusinessLogicLayer.Services
 {
     public class QuestionService : IQuestionService
     {
-        protected readonly IQuestionRepository questionRepository;
-        protected readonly IQuestionDifficultyRepository questionDifficultyRepository;
+        //protected readonly IQuestionRepository questionRepository;
+        //protected readonly IQuestionDifficultyRepository questionDifficultyRepository;
 
-        public QuestionService(IQuestionRepository questionRepository, IQuestionDifficultyRepository questionDifficultyRepository)
+        //public QuestionService(IQuestionRepository questionRepository, IQuestionDifficultyRepository questionDifficultyRepository)
+        //{
+        //    this.questionRepository = questionRepository;
+        //    this.questionDifficultyRepository = questionDifficultyRepository;
+        //}
+
+        protected readonly IUnitOfWork unitOfWork;
+
+        public QuestionService(IUnitOfWork unitOfWork)
         {
-            this.questionRepository = questionRepository;
-            this.questionDifficultyRepository = questionDifficultyRepository;
+            this.unitOfWork = unitOfWork;
         }
 
         public TestConfig CreateConfig()
         {
             var cfg = new TestConfig();
-            foreach (var item in questionDifficultyRepository.ListAll())
+            foreach (var item in unitOfWork.QuestionDifficultyRepository.ListAll())
             {
                 cfg.QuestionsOfEachDifficulty[item.ToDomain()] = 1;
             }
@@ -35,7 +42,7 @@ namespace BusinessLogicLayer.Services
                 .Where(p => p.Value > 0)
                 .ToList()
                 .ForEach((pair) => {
-                    testContent.AddRange(questionRepository
+                    testContent.AddRange(unitOfWork.QuestionRepository
                         .GetRandomByDifficulty(pair.Key.Id, pair.Value)
                         .Select(q => q.ToDomain()));
                 });
@@ -44,12 +51,13 @@ namespace BusinessLogicLayer.Services
 
         public void AddQuestion(Question question)
         {
-            questionRepository.Add(question.ToEntity());
+            unitOfWork.QuestionRepository.Add(question.ToEntity());
+            unitOfWork.Save();
         }
 
         public List<QuestionDifficulty> GetDifficulties()
         {
-            return questionDifficultyRepository.ListAll().Select(qd => qd.ToDomain()).ToList();
+            return unitOfWork.QuestionDifficultyRepository.ListAll().Select(qd => qd.ToDomain()).ToList();
         }
     }
 }

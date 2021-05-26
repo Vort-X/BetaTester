@@ -3,6 +3,7 @@ using BusinessLogicLayer.Services;
 using DataLayer.Database;
 using DataLayer.Interfaces;
 using DataLayer.Repositories;
+using DataLayer.UnitOfWork;
 using Microsoft.Extensions.DependencyInjection;
 using PresentationLayer.WpfApp.Models;
 using PresentationLayer.WpfApp.ViewModels;
@@ -63,9 +64,10 @@ namespace PresentationLayer.WpfApp
         private void ConfigureDAL(ServiceCollection services)
         {
             services.AddDbContext<TesterContext>()
-                .AddScoped<IAttemptRepository, AttemptRepository>()
-                .AddScoped<IQuestionDifficultyRepository, QuestionDifficultyRepository>()
-                .AddScoped<IQuestionRepository, QuestionRepository>();
+                //.AddScoped<IAttemptRepository, AttemptRepository>()
+                //.AddScoped<IQuestionDifficultyRepository, QuestionDifficultyRepository>()
+                //.AddScoped<IQuestionRepository, QuestionRepository>()
+                .AddScoped<IUnitOfWork, UnitOfWork>();
         }
     }
 }

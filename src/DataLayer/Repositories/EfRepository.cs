@@ -22,12 +22,6 @@ namespace DataLayer.Repositories
         public void Add(T entity)
         {
             dbContext.Set<T>().Add(entity);
-            dbContext.SaveChanges();
-        }
-
-        public int Count(Expression<Func<T, bool>> predicate)
-        {
-            return dbContext.Set<T>().Where(predicate).Count();
         }
 
         public int CountAll()
@@ -35,24 +29,9 @@ namespace DataLayer.Repositories
             return dbContext.Set<T>().Count();
         }
 
-        public T First(Expression<Func<T, bool>> predicate)
-        {
-            return dbContext.Set<T>().Where(predicate).First();
-        }
-
-        public T FirstOrDefault(Expression<Func<T, bool>> predicate)
-        {
-            return dbContext.Set<T>().Where(predicate).FirstOrDefault();
-        }
-
         public T GetById(int id)
         {
             return dbContext.Set<T>().Find(id);
-        }
-
-        public IReadOnlyList<T> List(Expression<Func<T, bool>> predicate)
-        {
-            return dbContext.Set<T>().Where(predicate).ToList();
         }
 
         public IReadOnlyList<T> ListAll()
@@ -63,13 +42,11 @@ namespace DataLayer.Repositories
         public void Remove(T entity)
         {
             dbContext.Set<T>().Remove(entity); 
-            dbContext.SaveChanges();
         }
 
         public void Update(T entity)
         {
             dbContext.Set<T>().Update(entity);
-            dbContext.SaveChanges();
         }
     }
 }

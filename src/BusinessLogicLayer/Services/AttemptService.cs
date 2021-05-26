@@ -9,24 +9,32 @@ namespace BusinessLogicLayer.Services
 {
     public class AttemptService : IAttemptService
     {
-        protected readonly IAttemptRepository attemptRepository;
+        //protected readonly IAttemptRepository attemptRepository;
 
-        public AttemptService(IAttemptRepository attemptRepository)
+        //public AttemptService(IAttemptRepository attemptRepository)
+        //{
+        //    this.attemptRepository = attemptRepository;
+        //}
+
+        protected readonly IUnitOfWork unitOfWork;
+
+        public AttemptService(IUnitOfWork unitOfWork)
         {
-            this.attemptRepository = attemptRepository;
+            this.unitOfWork = unitOfWork;
         }
 
         public List<AttemptInfo> GetTopTen()
         {
-            return attemptRepository
+            return unitOfWork.AttemptRepository
                 .GetLeaders(10)
-                .Select(a => new AttemptInfo(a.TesterName, a.TestingDate, attemptRepository.GetPoints(a.Id)))
+                .Select(a => new AttemptInfo(a.TesterName, a.TestingDate, unitOfWork.AttemptRepository.GetPoints(a.Id)))
                 .ToList();
         }
 
         public void SaveAttempt(Attempt attempt)
         {
-            attemptRepository.Add(attempt.ToEntity());
+            unitOfWork.AttemptRepository.Add(attempt.ToEntity());
+            unitOfWork.Save();
         }
     }
 }
