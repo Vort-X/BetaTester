@@ -6,13 +6,13 @@ using System.Linq.Expressions;
 
 namespace DataLayer.Interfaces
 {
-    public interface IRepository<T> where T : BaseEntity, IAggregateRoot
+    public interface IRepository<TEntity, TKey> where TEntity : IAggregateRoot
     {
         int CountAll();
-        T GetById(int id);
-        IReadOnlyList<T> ListAll();
-        void Add(T entity);
-        void Update(T entity);
-        void Remove(T entity);
+        TEntity GetById(TKey id);
+        IReadOnlyList<TEntity> ListAll();
+        void Add(TEntity entity);
+        void Update(TEntity entity);
+        void Remove(TEntity entity);
     }
 }

@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace DataLayer.Repositories
 {
-    public class QuestionRepository : EfRepository<QuestionEntity>, IQuestionRepository
+    public class QuestionRepository : EfRepository<QuestionEntity, int>, IQuestionRepository
     {
         public QuestionRepository(TesterContext dbContext) : base(dbContext)
         {

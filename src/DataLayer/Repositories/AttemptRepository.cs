@@ -9,7 +9,7 @@ using System.Linq.Expressions;
 
 namespace DataLayer.Repositories
 {
-    public class AttemptRepository : EfRepository<AttemptEntity>, IAttemptRepository
+    public class AttemptRepository : EfRepository<AttemptEntity, int>, IAttemptRepository
     {
         public AttemptRepository(TesterContext dbContext): base(dbContext)
         {

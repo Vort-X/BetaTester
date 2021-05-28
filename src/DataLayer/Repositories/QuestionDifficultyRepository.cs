@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace DataLayer.Repositories
 {
-    public class QuestionDifficultyRepository : EfRepository<QuestionDifficultyEntity>, IQuestionDifficultyRepository
+    public class QuestionDifficultyRepository : EfRepository<QuestionDifficultyEntity, int>, IQuestionDifficultyRepository
     {
         public QuestionDifficultyRepository(TesterContext dbContext) : base(dbContext)
         {

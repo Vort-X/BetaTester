@@ -5,12 +5,10 @@ using Entities.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
 
 namespace DataLayer.Repositories
 {
-    public class EfRepository<T> : IRepository<T> where T : BaseEntity, IAggregateRoot
+    public class EfRepository<TEntity, TKey> : IRepository<TEntity, TKey> where TEntity : class, IAggregateRoot
     {
         protected readonly TesterContext dbContext;
 
@@ -19,34 +17,34 @@ namespace DataLayer.Repositories
             this.dbContext = dbContext;
         }
 
-        public void Add(T entity)
+        public void Add(TEntity entity)
         {
-            dbContext.Set<T>().Add(entity);
+            dbContext.Set<TEntity>().Add(entity);
         }
 
         public int CountAll()
         {
-            return dbContext.Set<T>().Count();
+            return dbContext.Set<TEntity>().Count();
         }
 
-        public T GetById(int id)
+        public TEntity GetById(TKey id)
         {
-            return dbContext.Set<T>().Find(id);
+            return dbContext.Set<TEntity>().Find(id);
         }
 
-        public IReadOnlyList<T> ListAll()
+        public IReadOnlyList<TEntity> ListAll()
         {
-            return dbContext.Set<T>().ToList();
+            return dbContext.Set<TEntity>().ToList();
         }
 
-        public void Remove(T entity)
+        public void Remove(TEntity entity)
         {
-            dbContext.Set<T>().Remove(entity); 
+            dbContext.Set<TEntity>().Remove(entity); 
         }
 
-        public void Update(T entity)
+        public void Update(TEntity entity)
         {
-            dbContext.Set<T>().Update(entity);
+            dbContext.Set<TEntity>().Update(entity);
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace DataLayer.Interfaces
 {
-    public interface IQuestionDifficultyRepository : IRepository<QuestionDifficultyEntity>
+    public interface IQuestionDifficultyRepository : IRepository<QuestionDifficultyEntity, int>
     {
          
     }
