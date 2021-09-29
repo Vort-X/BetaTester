@@ -33,8 +33,6 @@ namespace PresentationLayer.WpfApp.Models
         public QuestionDifficultyModel CurrentDifficulty => difficulties.Find(d => d.Id == CurrentQuestion.DifficultyId);
         public QuestionModel CurrentQuestion => questions[currentIndex];
 
-        public event Action QuestionUpdate;
-
         public void GenerateTest()
         {
             questions.Clear();
@@ -46,8 +44,6 @@ namespace PresentationLayer.WpfApp.Models
             testItems.Clear();
             currentIndex = 0;
             Shuffle();
-
-            QuestionUpdate?.Invoke();
         }
 
         public bool GiveAnswer(int index)
@@ -67,7 +63,6 @@ namespace PresentationLayer.WpfApp.Models
             if (HasNext())
             {
                 currentIndex++;
-                QuestionUpdate?.Invoke();
             }
         }
 

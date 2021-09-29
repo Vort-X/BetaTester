@@ -1,4 +1,5 @@
 ﻿using PresentationLayer.WpfApp.Commands;
+using PresentationLayer.WpfApp.ViewModels;
 using PresentationLayer.WpfApp.Views;
 using System;
 using System.Collections.Generic;
@@ -22,28 +23,10 @@ namespace PresentationLayer.WpfApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow(IEnumerable<INavigatable> userControls)
+        public MainWindow(MainViewModel viewModel)
         {
             InitializeComponent();
-
-            Views = userControls;
-            foreach (var item in Views)
-            {
-                item.BuildNavigation(this);
-            }
-        }
-
-        public IEnumerable<INavigatable> Views { get; private set; }
-
-        public void ShowView<T>() where T : INavigatable
-        {
-            Func<INavigatable, bool> predicate = v => v is T;
-            if (Views.Any(predicate))
-            {
-                INavigatable view = Views.Single(predicate);
-                view.Refresh();
-                Content = view;
-            }
+            DataContext = viewModel;
         }
     }
 }

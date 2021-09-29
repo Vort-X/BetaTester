@@ -1,6 +1,7 @@
 ﻿using PresentationLayer.Models;
 using PresentationLayer.WpfApp.Commands;
 using PresentationLayer.WpfApp.Models;
+using PresentationLayer.WpfApp.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,11 +17,11 @@ namespace PresentationLayer.WpfApp.ViewModels
         private readonly LeaderTableProcessor processor;
         private ObservableCollection<AttemptInfoModel> leaders;
 
-        public LeaderTableViewModel(LeaderTableProcessor processor)
+        public LeaderTableViewModel(LeaderTableProcessor processor, NavigationService navigationService)
         {
             this.processor = processor;
 
-            MenuCommand = new NavigationCommand(_ => { }, _ => true);
+            MenuCommand = new UnconditionalCommand(_ => navigationService.NavigateTo("Menu"));
         }
 
         public ObservableCollection<AttemptInfoModel> Leaders 

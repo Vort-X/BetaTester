@@ -1,6 +1,7 @@
 ﻿using PresentationLayer.Models;
 using PresentationLayer.WpfApp.Commands;
 using PresentationLayer.WpfApp.Models;
+using PresentationLayer.WpfApp.Navigation;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,17 +17,18 @@ namespace PresentationLayer.WpfApp.ViewModels
         private ObservableCollection<ConfigRowModel> config;
         private readonly TestProcessor processor;
 
-        public ConfigViewModel(TestProcessor processor)
+        public ConfigViewModel(TestProcessor processor, NavigationService navigationService)
         {
             this.processor = processor;
 
-            MenuCommand = new NavigationCommand(_ => 
+            MenuCommand = new UnconditionalCommand(_ => 
             {
                 foreach (var item in Config)
                 {
                     processor.Config[item.Difficulty] = item.NumberOfQuestions;
                 }
-            }, _ => true);
+                navigationService.NavigateTo("Menu");
+            });
         }
 
         public ObservableCollection<ConfigRowModel> Config

@@ -21,6 +21,11 @@ namespace DataLayer.UnitOfWork
             this.dbContext = dbContext;
         }
 
+        ~UnitOfWork()
+        {
+            Dispose(false);
+        }
+
         public IAttemptRepository AttemptRepository => attemptRepository ??= new AttemptRepository(dbContext);
 
         public IQuestionRepository QuestionRepository => questionRepository ??= new QuestionRepository(dbContext);
@@ -35,14 +40,15 @@ namespace DataLayer.UnitOfWork
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposed)
+            if (disposed)
             {
-                if (disposing)
-                {
-                    dbContext.Dispose();
-                }
-                disposed = true;
+                return;
             }
+            if (disposing)
+            {
+                dbContext.Dispose();
+            }
+            disposed = true;
         }
 
         public void Save()

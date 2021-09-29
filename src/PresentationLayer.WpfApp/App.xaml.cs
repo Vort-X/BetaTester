@@ -26,7 +26,6 @@ namespace PresentationLayer.WpfApp
             ConfigureServices(services);
             var provider = services.BuildServiceProvider();
             var w = provider.GetRequiredService<MainWindow>();
-            w.ShowView<MenuView>();
             w.Show();
         }
 
@@ -39,20 +38,23 @@ namespace PresentationLayer.WpfApp
 
         private void ConfigurePL(ServiceCollection services)
         {
-            services.AddScoped(sp => new MainWindow(sp.GetServices<INavigatable>()));
+            services.AddScoped<MainWindow>();
 
-            services.AddScoped<INavigatable, MenuView>()
-                .AddScoped<INavigatable, TestView>()
-                .AddScoped<INavigatable, ConfigView>()
-                .AddScoped<INavigatable, LeaderTableView>();
+            services.AddScoped<UserControl, MenuView>()
+                .AddScoped<UserControl, TestView>()
+                .AddScoped<UserControl, ConfigView>()
+                .AddScoped<UserControl, LeaderTableView>();
 
-            services.AddScoped<MenuViewModel>()
+            services.AddScoped<MainViewModel>()
+                .AddScoped<MenuViewModel>()
                 .AddScoped<TestViewModel>()
                 .AddScoped<ConfigViewModel>()
                 .AddScoped<LeaderTableViewModel>();
 
             services.AddScoped<TestProcessor>()
                 .AddScoped<LeaderTableProcessor>();
+
+            services.AddScoped<Navigation.NavigationService>();
         }
 
         private void ConfigureBLL(ServiceCollection services)
@@ -64,9 +66,6 @@ namespace PresentationLayer.WpfApp
         private void ConfigureDAL(ServiceCollection services)
         {
             services.AddDbContext<TesterContext>()
-                //.AddScoped<IAttemptRepository, AttemptRepository>()
-                //.AddScoped<IQuestionDifficultyRepository, QuestionDifficultyRepository>()
-                //.AddScoped<IQuestionRepository, QuestionRepository>()
                 .AddScoped<IUnitOfWork, UnitOfWork>();
         }
     }

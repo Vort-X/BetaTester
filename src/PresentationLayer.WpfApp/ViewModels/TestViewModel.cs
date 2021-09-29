@@ -1,6 +1,7 @@
 ﻿using PresentationLayer.Models;
 using PresentationLayer.WpfApp.Commands;
 using PresentationLayer.WpfApp.Models;
+using PresentationLayer.WpfApp.Navigation;
 using System;
 using System.ComponentModel;
 using System.Windows.Input;
@@ -20,7 +21,7 @@ namespace PresentationLayer.WpfApp.ViewModels
 
         private readonly TestProcessor processor;
 
-        public TestViewModel(TestProcessor processor)
+        public TestViewModel(TestProcessor processor, NavigationService navigationService)
         {
             this.processor = processor;
 
@@ -32,12 +33,13 @@ namespace PresentationLayer.WpfApp.ViewModels
                 CanAnswer = false;
                 IsNextEnabled = true;
             }, _ => CanAnswer);
-            MenuCommand = new NavigationCommand(_ => { }, _ => true);
+            MenuCommand = new UnconditionalCommand(_ => navigationService.NavigateTo("Menu"));
             NextCommand = new Command(_ =>
             {
                 if (processor.HasNext())
                 {   
                     processor.Next();
+                    OnQuestionUpdate();
                 }
                 else
                 {
@@ -45,8 +47,6 @@ namespace PresentationLayer.WpfApp.ViewModels
                     MenuCommand.Execute(_);
                 }
             }, _ => IsNextEnabled);
-
-            processor.QuestionUpdate += OnQuestionUpdate;
         }
 
         public bool CanAnswer

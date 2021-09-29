@@ -1,4 +1,5 @@
 ﻿using PresentationLayer.WpfApp.Commands;
+using PresentationLayer.WpfApp.Navigation;
 using PresentationLayer.WpfApp.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
+//using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace PresentationLayer.WpfApp.Views
@@ -18,28 +19,17 @@ namespace PresentationLayer.WpfApp.Views
     /// <summary>
     /// Логика взаимодействия для MainMenu.xaml
     /// </summary>
-    public partial class MenuView : UserControl, INavigatable
+    public partial class MenuView : UserControl
     {
         readonly MenuViewModel viewModel;
 
-        public MenuView(MenuViewModel viewModel)
+        public MenuView(MenuViewModel viewModel, NavigationService navigationService)
         {
             InitializeComponent();
 
             this.viewModel = viewModel;
             DataContext = viewModel;
-        }
-
-        public void BuildNavigation(MainWindow window)
-        {
-            (viewModel.StartTestCommand as NavigationCommand).Navigation = window.ShowView<TestView>;
-            (viewModel.ConfigurateTestCommand as NavigationCommand).Navigation = window.ShowView<ConfigView>;
-            (viewModel.LeaderTableCommand as NavigationCommand).Navigation = window.ShowView<LeaderTableView>;
-        }
-
-        public void Refresh()
-        {
-            
+            navigationService.Register("Menu", this);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using PresentationLayer.WpfApp.Commands;
+using PresentationLayer.WpfApp.Navigation;
 using PresentationLayer.WpfApp.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
+//using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace PresentationLayer.WpfApp.Views
@@ -18,26 +19,17 @@ namespace PresentationLayer.WpfApp.Views
     /// <summary>
     /// Логика взаимодействия для LeaderTableView.xaml
     /// </summary>
-    public partial class LeaderTableView : UserControl, INavigatable
+    public partial class LeaderTableView : UserControl
     {
         readonly LeaderTableViewModel viewModel;
 
-        public LeaderTableView(LeaderTableViewModel viewModel)
+        public LeaderTableView(LeaderTableViewModel viewModel, NavigationService navigationService)
         {
             InitializeComponent();
 
             this.viewModel = viewModel;
             DataContext = viewModel;
-        }
-
-        public void BuildNavigation(MainWindow window)
-        {
-            (viewModel.MenuCommand as NavigationCommand).Navigation = window.ShowView<MenuView>;
-        }
-
-        public void Refresh()
-        {
-            viewModel.RefreshLeaders();
+            navigationService.Register("LeaderTable", this);
         }
     }
 }

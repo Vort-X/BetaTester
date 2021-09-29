@@ -1,5 +1,6 @@
 ﻿using PresentationLayer.WpfApp.Commands;
 using PresentationLayer.WpfApp.Models;
+using PresentationLayer.WpfApp.Navigation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,13 +14,30 @@ namespace PresentationLayer.WpfApp.ViewModels
     {
         //readonly TestProcessor processor;
 
-        public MenuViewModel(TestProcessor processor)
+        public MenuViewModel(TestViewModel test,
+                             ConfigViewModel config,
+                             LeaderTableViewModel leaderTable,
+                             TestProcessor processor,
+                             NavigationService navigationService)
         {
             //this.processor = processor;
 
-            StartTestCommand = new NavigationCommand(_ => processor.GenerateTest(), _ => true);
-            ConfigurateTestCommand = new NavigationCommand(_ => { }, _ => true);
-            LeaderTableCommand = new NavigationCommand(_ => { }, _ => true);
+            StartTestCommand = new UnconditionalCommand(_ =>
+            { 
+                processor.GenerateTest();
+                test.OnQuestionUpdate();
+                navigationService.NavigateTo("Test"); 
+            });
+            ConfigurateTestCommand = new UnconditionalCommand(_ => 
+            {
+                config.RefreshConfig();
+                navigationService.NavigateTo("Config"); 
+            });
+            LeaderTableCommand = new UnconditionalCommand(_ => 
+            {
+                leaderTable.RefreshLeaders();
+                navigationService.NavigateTo("LeaderTable"); 
+            });
         }
 
         public ICommand StartTestCommand { get; set; }

@@ -15,6 +15,7 @@ namespace DataLayer.Repositories
                 Add(new QuestionDifficultyEntity(0, "Easy", 1));
                 Add(new QuestionDifficultyEntity(0, "Normal", 3));
                 Add(new QuestionDifficultyEntity(0, "Hard", 6));
+                dbContext.SaveChanges();
             }
         }
     }
